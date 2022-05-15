@@ -1,0 +1,173 @@
+#VRML_SIM R2022a utf8
+WorldInfo {
+}
+Viewpoint {
+  orientation 0.1939152441745029 0.840682858186698 -0.5056176520136405 0.707727441452674
+  position -0.7306131685382473 0.4746502672618746 0.6811593876417228
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  translation 0 0.05 0
+}
+Robot {
+  translation -1.3021682010346342e-08 0.0003306596451992606 0.12668906692837625
+  rotation -0.9999999981152357 -5.755100370244266e-05 -2.1387168654933285e-05 0.0025739905513188586
+  scale 1.28457 1.28457 1.28457
+  children [
+    Transform {
+      translation 0 0 -0.03
+      children [
+        DEF body Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 0
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.12
+            radius 0.05
+          }
+          castShadows FALSE
+        }
+      ]
+    }
+    DEF ARM HingeJoint {
+      jointParameters HingeJointParameters {
+        position -9.823551264182659e-07
+        axis 0 0 1
+        anchor 0 0.02 0.045
+      }
+      device [
+        RotationalMotor {
+          name "armMotor"
+        }
+        PositionSensor {
+          name "armPositionSensor"
+        }
+      ]
+      endPoint Solid {
+        translation -8.271806125530277e-24 0.029999999999999978 0.0449508
+        rotation -0.9830652630034113 -0.0018026277987846081 -0.1832469350604602 5.362016749706212e-06
+        children [
+          DEF ENDEFFECTOR HingeJoint {
+            jointParameters HingeJointParameters {
+              position 31.42399935753253
+              axis 0 0 1
+              anchor 0 0.14 0.04
+            }
+            device [
+              RotationalMotor {
+                name "headMotor"
+              }
+            ]
+            endPoint Solid {
+              translation -0.0008880150272011164 0.22000208544304684 0.04
+              rotation 0 0 -1 6.275112485544995
+              children [
+                DEF head Solid {
+                  children [
+                    DEF operator Solid {
+                      translation 0 0.05 -0.04
+                      children [
+                        DEF operatorSensor1 DistanceSensor {
+                          translation 0.02 0 0
+                          children [
+                            DEF opSensor1 Shape {
+                              appearance PBRAppearance {
+                                roughness 1
+                                metalness 0
+                              }
+                              geometry Box {
+                                size 0.01 0.01 0.01
+                              }
+                              castShadows FALSE
+                            }
+                          ]
+                          name "operatorSensor1"
+                        }
+                        DEF operatorSensor2 DistanceSensor {
+                          translation -0.02 0 0
+                          rotation 0 0 1 3.141592653589793
+                          children [
+                            DEF opSensor2 Shape {
+                              appearance PBRAppearance {
+                                roughness 1
+                                metalness 0
+                              }
+                              geometry Box {
+                                size 0.01 0.01 0.01
+                              }
+                              castShadows FALSE
+                            }
+                          ]
+                          name "operatorSensor2"
+                        }
+                        DEF operator Shape {
+                          appearance PBRAppearance {
+                            baseColor 1 0 0
+                            roughness 1
+                            metalness 0
+                          }
+                          geometry Box {
+                            size 0.03 0.03 0.03
+                          }
+                          castShadows FALSE
+                        }
+                      ]
+                    }
+                    DEF head Shape {
+                      appearance PBRAppearance {
+                        roughness 1
+                        metalness 0
+                      }
+                      geometry Box {
+                        size 0.1 0.2 0.05
+                      }
+                      castShadows FALSE
+                    }
+                  ]
+                  name "head"
+                }
+              ]
+              name "solid(1)"
+              boundingObject DEF arm Shape {
+                appearance PBRAppearance {
+                  baseColor 1 0 1
+                  metalness 0
+                }
+                geometry Box {
+                  size 0.08 0.2 0.03
+                }
+                castShadows FALSE
+              }
+              physics Physics {
+              }
+            }
+          }
+          DEF arm Solid {
+            translation 0 0.07 0
+            children [
+              DEF arm Shape {
+                appearance PBRAppearance {
+                  baseColor 1 0 1
+                  metalness 0
+                }
+                geometry Box {
+                  size 0.08 0.2 0.03
+                }
+                castShadows FALSE
+              }
+            ]
+            name "armSolid"
+            boundingObject USE arm
+          }
+        ]
+      }
+    }
+  ]
+  locked TRUE
+  controller "arm"
+}
